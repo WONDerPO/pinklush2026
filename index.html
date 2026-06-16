@@ -233,7 +233,7 @@
         </div>
 
         <div class="input-guide">4つの動画に隠された合言葉を入力して下さい。</div>
-        <input type="text" id="password-input" class="pwd-input" placeholder="集めた合言葉を入力してね">
+        <input type="text" id="password-input" class="pwd-input" placeholder="集めた合言葉を入力ね">
         <br>
         <button class="open-btn" onclick="checkPassword()">回答する</button>
     </div>
@@ -252,7 +252,7 @@
         
         <div class="save-tip">画像を長押し、または右クリックで保存して下さい。</div>
         
-        <img src="present.png" alt="【特典壁紙】ぴんくらっしゅキャンペーン2026.png" type="image/png" class="present-img">
+        <img src="【特典壁紙】ぴんくらっしゅキャンペーン2026.png" alt="オリジナル画像" type="image/png" class="present-img">
         
         <br>
         <a href="https://www.instagram.com/wonder__po/" target="_blank" class="footer-link">©WONDer PO/ぴんくらっしゅ 2026</a>
@@ -304,7 +304,6 @@ function checkPassword() {
     const secretArea = document.getElementById('secret-area');
     const inputStage = document.getElementById('input-stage');
     
-    /* 💡 エラーメッセージをご指定の文章に完全一致修正 */
     if (!isMasiroUploaded || !isMoffyUploaded) {
         alert('真白ぴんくともっふぃのチャンネル登録済みが分かるスクリーンショットを添付してください。');
     } else if (input === 'だいすき') {
