@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プレゼントページ</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #F3A3C3 !important; /* 背景色はそのままキープ */
+        }
+        body {
+            color: #422930; /* 青みピンクになじむベリー系の深いブラウン */
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 30px 15px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .card {
+            background: #ffffff !important;
+            padding: 35px 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(66, 41, 48, 0.12);
+            display: block !important;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+        h2 {
+            font-size: 19px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #FF4081; /* 鮮やかな青みチェリーピンク */
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+        .success-title {
+            color: #FF4081;
+            font-size: 21px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .btn-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #422930;
+            margin-bottom: 8px;
+        }
+        .channel-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        /* 青みピンクのクリアなボタン */
+        .sub-btn {
+            flex: 1;
+            display: inline-block;
+            padding: 11px 10px;
+            background-color: #FF4081;
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 13px;
+            box-shadow: 0 4px 8px rgba(255, 64, 129, 0.25);
+            transition: background 0.2s;
+        }
+        .sub-btn:hover {
+            background-color: #e02667;
+        }
+        .upload-zone {
+            background: #fff5f8;
+            padding: 15px 12px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            border: 2px dashed #FF4081;
+            box-sizing: border-box;
+        }
+        .upload-zone p {
+            margin: 0 0 10px 0;
+            font-weight: bold;
+            color: #FF4081;
+            line-height: 1.4;
+        }
+        .safe-file-input {
+            font-size: 11px;
+            color: #422930;
+            max-width: 100%;
+        }
+        .preview-area {
+            margin-top: 10px;
+            display: none;
+        }
+        .preview-area img {
+            max-width: 100%;
+            max-height: 100px;
+            border-radius: 10px;
+            border: 2px solid #fff5f8;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .input-guide {
+            font-size: 13px;
+            font-weight: bold;
+            color: #FF4081;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        /* 入力枠の線を青み寄りのくすみローズピンクに変更 */
+        .pwd-input {
+            padding: 12px 15px;
+            font-size: 16px;
+            width: 90%;
+            border: 2px solid #C9829B;
+            border-radius: 30px;
+            outline: none;
+            text-align: center;
+            color: #422930;
+            background-color: #fffcfd;
+            margin-bottom: 10px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        .pwd-input:focus {
+            border-color: #FF4081;
+        }
+        .open-btn {
+            margin-top: 10px;
+            padding: 12px 45px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            background: #FF4081;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .open-btn:hover {
+            background: #e02667;
+            transform: translateY(-1px);
+        }
+        #secret-area {
+            display: none;
+            margin-top: 5px;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        .thank-you-msg {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #422930;
+            text-align: center;
+        }
+        /* 保存のコツ案内（文字色をマイルドなローズピンクに修正） */
+        .save-tip {
+            font-size: 12px;
+            color: #9E6073;
+            margin-bottom: 20px;
+            background: #fff5f8;
+            padding: 8px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        #secret-area img.present-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+        .footer-link {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: bold;
+            color: #FF4081;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+            transition: color 0.2s;
+        }
+        .footer-link:hover {
+            color: #e02667;
+            text-decoration: underline;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="input-stage">
+        <h2>ぴんくらっしゅ合言葉キャンペーン<br>特典ページ</h2>
+        
+        <div class="btn-label">公式YouTubeチャンネルはこちら</div>
+        <div class="channel-group">
+            <a href="https://youtube.com/@masirooukoku" target="_blank" class="sub-btn" onclick="logAction('p1_masiro')">真白ぴんく</a>
+            <a href="https://youtube.com/@hoshizoramoffy" target="_blank" class="sub-btn" onclick="logAction('p1_moffy')">もっふぃ</a>
+        </div>
+        
+        <div class="upload-zone">
+            <p>真白ぴんくのチャンネル登録はお済みですか？<br>こちらにアップしてください</p>
+            <input type="file" id="screenshot-masiro" class="safe-file-input" accept="image/*" onchange="previewImage('screenshot-masiro', 'preview-masiro-container', 'preview-masiro-img')">
+            
+            <div class="preview-area" id="preview-masiro-container">
+                <img id="preview-masiro-img" src="" alt="真白ぴんくスクショプレビュー">
+            </div>
+        </div>
+
+        <div class="upload-zone">
+            <p>もっふぃのチャンネル登録はお済みですか？<br>こちらにアップしてください</p>
+            <input type="file" id="screenshot-moffy" class="safe-file-input" accept="image/*" onchange="previewImage('screenshot-moffy', 'preview-moffy-container', 'preview-moffy-img')">
+            
+            <div class="preview-area" id="preview-moffy-container">
+                <img id="preview-moffy-img" src="" alt="もっふぃスクショプレビュー">
+            </div>
+        </div>
+
+        <div class="input-guide">4つの動画に隠された合言葉を入力して下さい。</div>
+        <input type="text" id="password-input" class="pwd-input" placeholder="集めた合言葉を入力してね">
+        <br>
+        <button class="open-btn" onclick="checkPassword()">回答する</button>
+    </div>
+
+    <div id="secret-area">
+        <div class="success-title">大正解！</div>
+        
+        <div class="thank-you-msg">
+            キャンペーンにご参加いただきありがとうございました！<br>これからも2人のYouTubeをお楽しみに！
+        </div>
+
+        <div class="channel-group" style="margin-bottom: 25px;">
+            <a href="https://youtube.com/@masirooukoku" target="_blank" class="sub-btn" style="padding: 10px;" onclick="logAction('p2_masiro')">真白ぴんく</a>
+            <a href="https://youtube.com/@hoshizoramoffy" target="_blank" class="sub-btn" style="padding: 10px;" onclick="logAction('p2_moffy')">もっふぃ</a>
+        </div>
+        
+        <div class="save-tip">画像を長押し、または右クリックで保存して下さい。</div>
+        
+        <img src="present.jpg" alt="オリジナル画像" type="image/png" class="present-img">
+        
+        <br>
+        <a href="https://www.instagram.com/wonder__po/" target="_blank" class="footer-link">©WONDer PO/ぴんくらっしゅ 2026</a>
+    </div>
+</div>
+
+<script>
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyrKK1buV_nx0T3dzUU3_wV16Y5Tys2U5nJyuLaFGDScd7bcAPaz5nNJIGw6aU_WxY2Dg/exec";
+
+function logAction(actionType) {
+    fetch(GAS_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: actionType })
+    }).catch(err => console.log(err));
+}
+
+function previewImage(inputId, containerId, imgId) {
+    const input = document.getElementById(inputId);
+    const previewContainer = document.getElementById(containerId);
+    const imagePreview = document.getElementById(imgId);
+    
+    if (input.files && input.files.length > 0) {
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+            previewContainer.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    } else {
+        previewContainer.style.display = 'none';
+    }
+}
+
+function checkPassword() {
+    let input = document.getElementById('password-input').value.trim();
+    input = input.replace(/[\u30a1-\u30f6]/g, function(match) {
+        return String.fromCharCode(match.charCodeAt(0) - 0x60);
+    });
+
+    const fileMasiro = document.getElementById('screenshot-masiro');
+    const fileMoffy = document.getElementById('screenshot-moffy');
+    
+    const isMasiroUploaded = fileMasiro.files && fileMasiro.files.length > 0;
+    const isMoffyUploaded = fileMoffy.files && fileMoffy.files.length > 0;
+
+    const secretArea = document.getElementById('secret-area');
+    const inputStage = document.getElementById('input-stage');
+    
+    /* 💡 エラーメッセージをご指定の文章に完全一致修正 */
+    if (!isMasiroUploaded || !isMoffyUploaded) {
+        alert('真白ぴんくともっふぃのチャンネル登録済みが分かるスクリーンショットを添付してください。');
+    } else if (input === 'だいすき') {
+        logAction("success");
+        inputStage.style.display = 'none';
+        secretArea.style.display = 'block';
+        window.scrollTo(0, 0);
+    } else {
+        alert('合言葉が違うみたい。もう一度チャレンジしましょう！');
+    }
+}
+</script>
+
+</body>
+</html>
